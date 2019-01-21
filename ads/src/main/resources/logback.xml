@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<timestamp key="fileDate" datePattern="yyyyMMdd" />
+	<property name="loghome" value="./adslog" />
+	<property name="logbackuppath" value="/backup" />
+	<!-- NPM appenders and logger starts -->
+	<appender name="ADS_INFO_Appender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${loghome}/info/ADS.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY </onMismatch>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${loghome}${logbackuppath}\\ADS_log_%d{yyyy-MM-dd}-%i.gz
+			</fileNamePattern>
+			<!-- each file should be at most 100MB, keep #{maxHistory} days worth 
+				of history,but at most #{totalSizeCap}GB -->
+			<maxFileSize>102400KB</maxFileSize>
+			<maxHistory>200</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="adsInfo" additivity="false" level="INFO">
+		<appender-ref ref="ADS_INFO_Appender" />
+	</logger>
+
+	<!-- Error start/ -->
+	<appender name="ADS_ERROR_Appender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${loghome}/error/ADS.err</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY </onMismatch>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${loghome}${logbackuppath}/ADS_error_%d{yyyy-MM-dd}-%i.gz
+			</fileNamePattern>
+			<!-- each file should be at most 100MB, keep #{maxHistory} days worth 
+				of history,but at most #{totalSizeCap}GB -->
+			<maxFileSize>102400KB</maxFileSize>
+			<maxHistory>200</maxHistory>
+			<totalSizeCap>20GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="adsErr" additivity="false" level="ERROR">
+		<appender-ref ref="ADS_ERROR_Appender" />
+	</logger>
+</configuration>

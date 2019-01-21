@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Class-Path: ../UMProvision
+#Main-Class: com.sg.ump.process.ProcessControl
+
+##SoapAgent jar.
+#Main-Class: com.sg.ump.agent.soapagent.SoapAgent
+
+##MF
+#Main-Class: com.sg.ump.mediation.Mediation
+
+##Connector
+#Main-Class: com.sg.ump.connector.http.soap.HLRDConnector
